@@ -2,12 +2,11 @@
 #include "../include/Trinomial.h"
 #include "../include/Polynomial.h"
 #include <vector>
+#include <map>
 
 
 int main()
 {
-    Trinomial trinomial1(4, 3, -3);
-
     std::vector<double> coeffs = {2, 3, 1, 2};
     std::vector<double> pwrs = {4, 3, 2, 1};
 
@@ -22,4 +21,12 @@ int main()
     poly2.print();
     std::cout << "-----" << std::endl;
     poly3.print();
+
+    std::vector<std::pair<int, int>> pairvector;
+
+    pairvector.push_back({1, 2});
+
+    std::cout << pairvector[0].second << std::endl;
+
+
 }

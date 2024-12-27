@@ -16,37 +16,23 @@ public:
 
     double evaluate(double value);
 
-    // Polynomial operator+(Polynomial const &polynomial2)
-    // {
-    //     int more_terms;
-    //     int less_terms;
+    Polynomial operator+(Polynomial const &polynomial2)
+    {
+        std::vector<std::pair<double, double>> new_coeff_pwr;
 
-    //     if (size >= polynomial2.size)
-    //     {
-    //         more_terms = size;
-    //         less_terms = polynomial2.size;
-    //     }
-    //     else
-    //     {
-    //         more_terms = polynomial2.size;
-    //         less_terms = size;
-    //     }
-
-    //     std::vector<double> new_coeffs;
-    //     std::vector<double> new_pwrs;
-
-    //     for (int i = 0; i < size; i++)
-    //     {
-    //         for (int j = 0; j < polynomial2.size; j++)
-    //         {
-    //             if (pwrs[i] == polynomial2.pwrs[j])
-    //             {
-    //                 new_coeffs.push_back(coeffs[i] + polynomial2.coeffs[j]);
-    //                 new_pwrs.push_back(pwrs[i]);
-    //             }
-    //         }
-    //     }
-    //     Polynomial newPolynomial(new_coeffs, new_pwrs);
-    //     return newPolynomial;
-    // }
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < polynomial2.size; j++)
+            {
+                if (coeff_pwr[i].second == polynomial2.coeff_pwr[j].second)
+                {
+                    new_coeff_pwr.push_back(
+                        std::make_pair(
+                            (coeff_pwr[i].first + polynomial2.coeff_pwr[j].first), coeff_pwr[i].second));
+                }
+            }
+        }
+        Polynomial newPolynomial(new_coeff_pwr);
+        return newPolynomial;
+    }
 };

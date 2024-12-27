@@ -76,6 +76,6 @@ double Polynomial::integral(double end, double start)
     double b = antideriv.evaluate(start);
     std:: cout << a << std::endl;
     std::cout << b << std::endl;
+    // SOMETHING IS FUCKED UP WITH EVALUATE, NOT RETURNING CORRECT VALUE FOR NEGATIVE ARGUMENT
     return a - b;
-    // ???
 }

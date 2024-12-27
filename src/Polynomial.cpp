@@ -21,8 +21,10 @@ void Polynomial::print()
 {
     for (int i = 0; i < size; i++)
     {
-        std::cout << "(" << coeff_pwr[i].first << "x^" << coeff_pwr[i].second << ")" << "+" << std::endl;
+        std::cout << "(" << coeff_pwr[i].first << "x^" << coeff_pwr[i].second << ")";
+        if((i + 1) != size) std::cout << " + ";
     }
+    std::cout << "\n";
 }
 
 double Polynomial::evaluate(double value)
@@ -50,4 +52,30 @@ Polynomial Polynomial::derivative()
     }
     Polynomial differentiatedPolynomial(differentiated_coeff_pwr);
     return differentiatedPolynomial;
+}
+
+Polynomial Polynomial::antiderivative()
+{
+    std::vector<std::pair<double, double>> antidifferentiated_coeff_pwr;
+    for (int i = 0; i < size; i++)
+    {
+        double coeff = (coeff_pwr[i].first / (coeff_pwr[i].second + 1));
+        double pwr = (coeff_pwr[i].second + 1);
+
+        antidifferentiated_coeff_pwr.push_back(std::make_pair(coeff, pwr));
+    }
+    Polynomial antidifferentiatedPolynomial(antidifferentiated_coeff_pwr);
+    return antidifferentiatedPolynomial;
+}
+
+double Polynomial::integral(double end, double start)
+{
+    Polynomial antideriv = this->antiderivative();
+    antideriv.print();
+    double a = antideriv.evaluate(end);
+    double b = antideriv.evaluate(start);
+    std:: cout << a << std::endl;
+    std::cout << b << std::endl;
+    return a - b;
+    // ???
 }

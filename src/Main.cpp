@@ -4,37 +4,33 @@
 #include <vector>
 #include <map>
 
+void divider()
+{
+    std::cout << "- - - - - - - -" << std::endl;
+}
+
 
 int main()
 {
-    // Polynomial poly3 = poly1 + poly2;
-    // poly1.print();
-    // std::cout << "-----" << std::endl;
-    // poly2.print();
-    // std::cout << "-----" << std::endl;
-    // poly3.print();
-
-    std::vector<std::pair<double, double>> pairvector{{3, 4}, {5, 6}};
-    std::vector<std::pair<double, double>> pairvector2;
-
-    pairvector.push_back({1, 2});
-
-    pairvector2 = pairvector;
-
-    std::cout << pairvector2[0].second << std::endl;
-
-    Polynomial poly1({1, 3, 4});
+    Polynomial poly1({1, 3, 5, 6, 7});
     Polynomial poly2({{3, 4}, {5, 2}, {6, 1}});
     poly1.print();
-    std::cout << "- - - - -" << std::endl;
+    divider();
     poly2.print();
-    std::cout << "- - - - -" << std::endl;
+    divider();
     Polynomial poly3 = poly1 - poly2;
-    std::cout << "- - - - -" << std::endl;
+    divider();
     poly3.print();
-    std::cout << "- - - - -" << std::endl;
+    divider();
     
     Polynomial diffpoly3 = poly3.derivative();
 
     diffpoly3.print();
+
+    divider();
+
+    Polynomial poly4({2, 2, 2});
+    Polynomial antipoly4 = poly4.antiderivative();
+    antipoly4.print();
+    std::cout << poly4.integral(2, -2);
 }

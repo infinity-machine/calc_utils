@@ -18,6 +18,10 @@ public:
 
     Polynomial derivative();
 
+    Polynomial antiderivative();
+
+    double integral(double end, double start);
+
     Polynomial operator+(Polynomial const &polynomial2)
     {
         std::vector<std::pair<double, double>> new_coeff_pwr;

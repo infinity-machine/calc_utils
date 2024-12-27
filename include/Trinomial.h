@@ -1,4 +1,4 @@
-class Trinomial 
+class Trinomial
 {
 private:
     int coeff_a;

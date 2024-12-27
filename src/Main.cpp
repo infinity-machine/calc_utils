@@ -24,12 +24,17 @@ int main()
     std::cout << pairvector2[0].second << std::endl;
 
     Polynomial poly1({1, 3, 4});
-    Polynomial poly2({{1, 3}, {3, 2}, {4, 1}});
+    Polynomial poly2({{3, 4}, {5, 2}, {6, 1}});
     poly1.print();
     std::cout << "- - - - -" << std::endl;
     poly2.print();
     std::cout << "- - - - -" << std::endl;
-    Polynomial poly3 = poly1 + poly2;
+    Polynomial poly3 = poly1 - poly2;
     std::cout << "- - - - -" << std::endl;
     poly3.print();
+    std::cout << "- - - - -" << std::endl;
+    
+    Polynomial diffpoly3 = poly3.derivative();
+
+    diffpoly3.print();
 }

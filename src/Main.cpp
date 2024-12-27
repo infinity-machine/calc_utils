@@ -7,26 +7,34 @@
 
 int main()
 {
-    std::vector<double> coeffs = {2, 3, 1, 2};
-    std::vector<double> pwrs = {4, 3, 2, 1};
+    // Polynomial poly3 = poly1 + poly2;
+    // poly1.print();
+    // std::cout << "-----" << std::endl;
+    // poly2.print();
+    // std::cout << "-----" << std::endl;
+    // poly3.print();
 
-    Polynomial poly1(coeffs, pwrs);
-    Polynomial poly2({1, 1, 1, 1});
-    std::cout << poly1.evaluate(2) << std::endl;
-    std::cout << poly2.evaluate(2) << std::endl;
-
-    Polynomial poly3 = poly1 + poly2;
-    poly1.print();
-    std::cout << "-----" << std::endl;
-    poly2.print();
-    std::cout << "-----" << std::endl;
-    poly3.print();
-
-    std::vector<std::pair<int, int>> pairvector;
+    std::vector<std::pair<double, double>> pairvector{{3, 4}, {5, 6}};
+    std::vector<std::pair<double, double>> pairvector2;
 
     pairvector.push_back({1, 2});
 
-    std::cout << pairvector[0].second << std::endl;
+    pairvector2 = pairvector;
 
+    std::cout << pairvector2[0].second << std::endl;
 
+    Polynomial poly1({1, 3, 4});
+    Polynomial poly2({{3, 4}, {5, 2}, {6, 1}});
+    poly1.print();
+    std::cout << "- - - - -" << std::endl;
+    poly2.print();
+    std::cout << "- - - - -" << std::endl;
+    Polynomial poly3 = poly1 - poly2;
+    std::cout << "- - - - -" << std::endl;
+    poly3.print();
+    std::cout << "- - - - -" << std::endl;
+    
+    Polynomial diffpoly3 = poly3.derivative();
+
+    diffpoly3.print();
 }

@@ -1,39 +1,53 @@
 #include "Polynomial.h"
-#include <cassert>
 #include <cmath>
 
 Polynomial::Polynomial(const std::vector<double> &coefficients)
 {
-    coeffs = coefficients;
     size = coefficients.size();
-    for (double i = (size - 1); i >= 0; i--)
+    for (int i = 0; i < coefficients.size(); i++)
     {
-        pwrs.push_back(i);
+        double power = size - (1 + i);
+        coeff_pwr.push_back({coefficients[i], power});
     }
 }
 
-Polynomial::Polynomial(const std::vector<double> &coefficients, const std::vector<double> &powers)
+Polynomial::Polynomial(const std::vector<std::pair<double, double>> &coefficients_powers)
 {
-    assert(coefficients.size() == powers.size());
-    coeffs = coefficients;
-    pwrs = powers;
-    size = coefficients.size();
+    coeff_pwr = coefficients_powers;
+    size = coeff_pwr.size();
 }
 
 void Polynomial::print()
 {
     for (int i = 0; i < size; i++)
     {
-        std::cout << "(" << coeffs[i] << "x^" << pwrs[i] << ")" << "+" << std::endl;
+        std::cout << "(" << coeff_pwr[i].first << "x^" << coeff_pwr[i].second << ")" << "+" << std::endl;
     }
 }
 
 double Polynomial::evaluate(double value)
 {
     double sum;
-    for(int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
-        sum = sum + (coeffs[i] * pow(value, pwrs[i]));
+        sum = sum + (coeff_pwr[i].first * pow(value, coeff_pwr[i].second));
     }
     return sum;
+}
+
+Polynomial Polynomial::derivative()
+{
+    std::vector<std::pair<double, double>> differentiated_coeff_pwr;
+    for (int i = 0; i < size; i++)
+    {
+        if (coeff_pwr[i].second != 0)
+        {
+            double coeff = (coeff_pwr[i].first * coeff_pwr[i].second);
+            double pwr = (coeff_pwr[i].second - 1);
+
+            differentiated_coeff_pwr.push_back(std::make_pair(coeff, pwr));
+        }
+    }
+    Polynomial differentiatedPolynomial(differentiated_coeff_pwr);
+    return differentiatedPolynomial;
 }

@@ -4,50 +4,99 @@
 class Polynomial
 {
 private:
-    std::vector<double> coeffs;
-    std::vector<double> pwrs;
+    std::vector<std::pair<double, double>> coeff_pwr;
     int size;
 
 public:
     Polynomial(const std::vector<double> &coefficients);
 
-    Polynomial(const std::vector<double> &coefficients, const std::vector<double> &powers);
+    Polynomial(const std::vector<std::pair<double, double>> &coefficients_powers);
 
     void print();
 
     double evaluate(double value);
 
+    Polynomial derivative();
+
     Polynomial operator+(Polynomial const &polynomial2)
     {
-        int more_terms;
-        int less_terms;
+        std::vector<std::pair<double, double>> new_coeff_pwr;
 
-        if (size >= polynomial2.size)
+        int i = 0, j = 0;
+        while (i < size && j < polynomial2.size)
         {
-            more_terms = size;
-            less_terms = polynomial2.size;
-        }
-        else
-        {
-            more_terms = polynomial2.size;
-            less_terms = size;
-        }
-
-        std::vector<double> new_coeffs;
-        std::vector<double> new_pwrs;
-
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < polynomial2.size; j++)
+            if (coeff_pwr[i].second == polynomial2.coeff_pwr[j].second)
             {
-                if (pwrs[i] == polynomial2.pwrs[j])
+                double coeff_sum = coeff_pwr[i].first + polynomial2.coeff_pwr[j].first;
+                if (coeff_sum != 0)
                 {
-                    new_coeffs.push_back(coeffs[i] + polynomial2.coeffs[j]);
-                    new_pwrs.push_back(pwrs[i]);
+                    new_coeff_pwr.push_back(std::make_pair(coeff_sum, coeff_pwr[i].second));
                 }
+                i++;
+                j++;
+            }
+            else if (coeff_pwr[i].second > polynomial2.coeff_pwr[j].second)
+            {
+                new_coeff_pwr.push_back(coeff_pwr[i]);
+                i++;
+            }
+            else {
+                new_coeff_pwr.push_back(polynomial2.coeff_pwr[j]);
+                j++;
             }
         }
-        Polynomial newPolynomial(new_coeffs, new_pwrs);
+
+        while (i < size) {
+            new_coeff_pwr.push_back(coeff_pwr[i]);
+            i++;
+        }
+
+        while (j < polynomial2.size) {
+            new_coeff_pwr.push_back(polynomial2.coeff_pwr[j]);
+            j++;
+        }
+        Polynomial newPolynomial(new_coeff_pwr);
+        return newPolynomial;
+    }
+
+    Polynomial operator-(Polynomial const &polynomial2)
+    {
+        std::vector<std::pair<double, double>> new_coeff_pwr;
+
+        int i = 0, j = 0;
+        while (i < size && j < polynomial2.size)
+        {
+            if (coeff_pwr[i].second == polynomial2.coeff_pwr[j].second)
+            {
+                double coeff_diff = coeff_pwr[i].first - polynomial2.coeff_pwr[j].first;
+                if (coeff_diff != 0)
+                {
+                    new_coeff_pwr.push_back(std::make_pair(coeff_diff, coeff_pwr[i].second));
+                }
+                i++;
+                j++;
+            }
+            else if (coeff_pwr[i].second > polynomial2.coeff_pwr[j].second)
+            {
+                new_coeff_pwr.push_back(coeff_pwr[i]);
+                i++;
+            }
+            else {
+                new_coeff_pwr.push_back(polynomial2.coeff_pwr[j]);
+                j++;
+            }
+        }
+
+        while (i < size) {
+            new_coeff_pwr.push_back(coeff_pwr[i]);
+            i++;
+        }
+
+        while (j < polynomial2.size) {
+            new_coeff_pwr.push_back(polynomial2.coeff_pwr[j]);
+            j++;
+        }
+        Polynomial newPolynomial(new_coeff_pwr);
         return newPolynomial;
     }
 };

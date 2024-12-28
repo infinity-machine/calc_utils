@@ -1,7 +1,7 @@
 CC = g++
 COMPILER_FLAGS = -std=c++11
 SRC_DIR = src
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+SRC_FILES = Main.cpp $(wildcard $(SRC_DIR)/*.cpp)
 INCLUDE_PATHS = -Iinclude
 BUILD_DIR = build
 OBJ_NAME = outfile

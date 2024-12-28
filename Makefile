@@ -1,5 +1,5 @@
 CC = g++
-COMPILER_FLAGS = -std=c++11
+COMPILER_FLAGS = -std=c++17
 SRC_DIR = src
 SRC_FILES = Main.cpp $(wildcard $(SRC_DIR)/*.cpp)
 INCLUDE_PATHS = -Iinclude

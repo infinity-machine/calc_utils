@@ -18,6 +18,7 @@ public:
 
     Polynomial derivative();
     Polynomial antiderivative();
+    Polynomial likeTerms();
 
     Monomial term(int index);
 

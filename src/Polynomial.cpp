@@ -1,5 +1,6 @@
 #include "Polynomial.h"
 #include <cmath>
+#include "unicodePwrs.h"
 
 Polynomial::Polynomial(const std::vector<double> &coefficients)
 {
@@ -21,8 +22,14 @@ void Polynomial::print()
 {
     for (int i = 0; i < size; i++)
     {
-        std::cout << "(" << coeff_pwr[i].first << "x^" << coeff_pwr[i].second << ")";
-        if((i + 1) != size) std::cout << " + ";
+        if (coeff_pwr[i].second >= 10)
+            std::cout << "(" << coeff_pwr[i].first << "x^" << coeff_pwr[i].second << ")";
+        
+        if (coeff_pwr[i].second < 10 && coeff_pwr[i].second > 0)
+            std::cout << coeff_pwr[i].first << "x" << superscriptDigit(coeff_pwr[i].second); 
+
+        if ((i + 1) != size)
+            std::cout << " + ";
     }
     std::cout << "\n";
 }

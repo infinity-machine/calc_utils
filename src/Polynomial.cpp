@@ -29,7 +29,7 @@ void Polynomial::print()
 
 double Polynomial::evaluate(double value)
 {
-    double sum;
+    double sum = 0;
     for (int i = 0; i < size; i++)
     {
         sum = sum + (coeff_pwr[i].first * pow(value, coeff_pwr[i].second));
@@ -68,14 +68,8 @@ Polynomial Polynomial::antiderivative()
     return antidifferentiatedPolynomial;
 }
 
-double Polynomial::integral(double end, double start)
+double Polynomial::integral(double start, double end)
 {
     Polynomial antideriv = this->antiderivative();
-    antideriv.print();
-    double a = antideriv.evaluate(end);
-    double b = antideriv.evaluate(start);
-    std:: cout << a << std::endl;
-    std::cout << b << std::endl;
-    // SOMETHING IS FUCKED UP WITH EVALUATE, NOT RETURNING CORRECT VALUE FOR NEGATIVE ARGUMENT
-    return a - b;
+    return (antideriv.evaluate(end) - antideriv.evaluate(start));
 }

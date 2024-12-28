@@ -20,7 +20,7 @@ public:
 
     Polynomial antiderivative();
 
-    double integral(double end, double start);
+    double integral(double start, double end);
 
     Polynomial operator+(Polynomial const &polynomial2)
     {

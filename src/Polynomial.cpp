@@ -8,7 +8,8 @@
 Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomial_terms)
 {
     // assert(terms.size() > 1);
-    for(int i = 0; i < monomial_terms.size(); i++) {
+    for (int i = 0; i < monomial_terms.size(); i++)
+    {
         Monomial term(monomial_terms[i]);
         terms.push_back(term);
     }
@@ -40,48 +41,42 @@ void Polynomial::print()
 }
 
 // EVALUATE POLYNOMIAL FOR GIVEN VALUE
-// double Polynomial::evaluate(double value)
-// {
-//     double sum = 0;
-//     for (int i = 0; i < size; i++)
-//     {
-//         sum = sum + (terms[i].coeff() * pow(value, terms[i].pwr()));
-//     }
-//     return sum;
-// }
+double Polynomial::evaluate(double value)
+{
+    double sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum = sum + (terms[i].evaluate(value));
+    }
+    return sum;
+}
 
 // RETURN DIFFERENTIATED POLYNOMIAL
-// Polynomial Polynomial::derivative()
-// {
-//     std::vector<Monomial> differentiated_terms;
-//     for (int i = 0; i < size; i++)
-//     {
-//         if (terms[i].pwr() != 0)
-//         {
-//             double coeff = (terms[i].coeff() * terms[i].pwr());
-//             int pwr = (terms[i].pwr() - 1);
-
-//             differentiated_terms.push_back(std::make_pair(coeff, pwr));
-//         }
-//     }
-//     Polynomial differentiatedPolynomial(differentiated_terms);
-//     return differentiatedPolynomial;
-// }
+Polynomial Polynomial::derivative()
+{
+    std::vector<Monomial> differentiated_terms;
+    for (int i = 0; i < size; i++)
+    {
+        if (terms[i].pwr() != 0)
+        {
+            differentiated_terms.push_back(terms[i].derivative());
+        }
+    }
+    Polynomial differentiatedPolynomial(differentiated_terms);
+    return differentiatedPolynomial;
+}
 
 // RETURN ANTIDIFFERENTIATED POLYNOMIAL
-// Polynomial Polynomial::antiderivative()
-// {
-//     std::vector<Monomial> antidifferentiated_terms;
-//     for (int i = 0; i < size; i++)
-//     {
-//         double coeff = (terms[i].coeff() / (terms[i].pwr() + 1));
-//         int pwr = (terms[i].pwr() + 1);
-
-//         antidifferentiated_terms.push_back(std::make_pair(coeff, pwr));
-//     }
-//     Polynomial antidifferentiatedPolynomial(antidifferentiated_terms);
-//     return antidifferentiatedPolynomial;
-// }
+Polynomial Polynomial::antiderivative()
+{
+    std::vector<Monomial> antidifferentiated_terms;
+    for (int i = 0; i < size; i++)
+    {
+        antidifferentiated_terms.push_back(terms[i].antiderivative());
+    }
+    Polynomial antidifferentiatedPolynomial(antidifferentiated_terms);
+    return antidifferentiatedPolynomial;
+}
 
 Monomial Polynomial::term(int index)
 {
@@ -89,11 +84,11 @@ Monomial Polynomial::term(int index)
 }
 
 // RETURN INTEGRAL FROM B TO A
-// double Polynomial::integral(double start, double end)
-// {
-//     Polynomial antideriv = this->antiderivative();
-//     return (antideriv.evaluate(end) - antideriv.evaluate(start));
-// }
+double Polynomial::integral(double start, double end)
+{
+    Polynomial antideriv = this->antiderivative();
+    return (antideriv.evaluate(end) - antideriv.evaluate(start));
+}
 
 // POLYNOMIAL ADDITION
 Polynomial operator+(Polynomial &poly1, Polynomial &poly2)
@@ -103,7 +98,7 @@ Polynomial operator+(Polynomial &poly1, Polynomial &poly2)
     int i = 0, j = 0;
     while (i < poly1.size && j < poly2.size)
     {
-        if (poly1.terms[i].pwr() == poly2.terms[i].pwr())
+        if (poly1.terms[i].pwr() == poly2.terms[j].pwr())
         {
             double coeff_sum = poly1.terms[i].coeff() + poly2.terms[j].coeff();
             if (coeff_sum != 0)

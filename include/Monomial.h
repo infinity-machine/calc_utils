@@ -12,4 +12,9 @@ public:
 
     double coeff();
     int pwr();
+
+    double evaluate(double value);
+
+    Monomial derivative();
+    Monomial antiderivative();
 };

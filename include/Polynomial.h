@@ -14,14 +14,14 @@ public:
     Polynomial(const std::vector<Monomial> &terms);
 
     void print();
-    // double evaluate(double value);
+    double evaluate(double value);
 
-    // Polynomial derivative();
-    // Polynomial antiderivative();
+    Polynomial derivative();
+    Polynomial antiderivative();
 
     Monomial term(int index);
 
-    // double integral(double start, double end);
+    double integral(double start, double end);
 
     friend Polynomial operator+(Polynomial& poly1, Polynomial& poly2);
     // friend Polynomial operator-(const Polynomial& poly1, const Polynomial& poly2);

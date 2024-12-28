@@ -21,11 +21,11 @@ int main()
     Polynomial poly3 = poly1 + poly2;
     // divider();
     poly3.print();
-    // divider();
+    divider();
     
-    // Polynomial diffpoly3 = poly3.derivative();
+    Polynomial diffpoly3 = poly3.derivative();
 
-    // diffpoly3.print();
+    diffpoly3.print();
 
     // divider();
 

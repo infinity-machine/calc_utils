@@ -22,6 +22,15 @@ Polynomial::Polynomial(const std::vector<Monomial> &monomial_terms)
     size = monomial_terms.size();
 }
 
+// ORGANIZE BY DESCENDING ORDER OF TERM POWERS
+void Polynomial::orderPwrs()
+{
+    std::vector<Monomial> orderedPoly;
+
+    std::sort(terms.begin(), terms.end(), [](auto &left, auto &right)
+              { return left.pwr() > right.pwr(); });
+}
+
 // PRINT POLYNOMIAL
 void Polynomial::print()
 {
@@ -57,50 +66,36 @@ double Polynomial::evaluate(double value)
 }
 
 // RETURN DIFFERENTIATED POLYNOMIAL
-Polynomial Polynomial::derivative()
+void Polynomial::derivative()
 {
-    std::vector<Monomial> differentiated_terms;
     for (int i = 0; i < size; i++)
     {
         if (terms[i].pwr() != 0)
-            differentiated_terms.push_back(terms[i].derivative());
+            terms[i].derivative();
+        else {
+            terms.erase(terms.begin() + i);
+            size --;
+        }
     }
-    Polynomial differentiatedPolynomial(differentiated_terms);
-    return differentiatedPolynomial;
 }
 
 // RETURN ANTIDIFFERENTIATED POLYNOMIAL
-Polynomial Polynomial::antiderivative()
+void Polynomial::antiderivative()
 {
-    std::vector<Monomial> antidifferentiated_terms;
     for (int i = 0; i < size; i++)
     {
-        antidifferentiated_terms.push_back(terms[i].antiderivative());
+        terms[i].antiderivative();
     }
-    Polynomial antidifferentiatedPolynomial(antidifferentiated_terms);
-    return antidifferentiatedPolynomial;
-}
-
-// ORGANIZE BY DESCENDING ORDER OF TERM POWERS
-void Polynomial::orderPwrs()
-{
-    std::vector<Monomial> orderedPoly;
-
-    std::sort(terms.begin(), terms.end(), [](auto &left, auto &right)
-              { return left.pwr() > right.pwr(); });
-}
-
-// RETURN TERM AT INDEX
-Monomial Polynomial::term(int index)
-{
-    return terms[index];
 }
 
 // RETURN INTEGRAL FROM B TO A
 double Polynomial::integral(double start, double end)
 {
-    Polynomial antideriv = this->antiderivative();
-    return (antideriv.evaluate(end) - antideriv.evaluate(start));
+    for (int i = 0; i < size; i++)
+    {
+        terms[i].antiderivative();
+    }
+    return (this->evaluate(end) - this->evaluate(start));
 }
 
 // POLYNOMIAL ADDITION

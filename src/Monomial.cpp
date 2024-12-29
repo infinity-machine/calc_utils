@@ -1,4 +1,5 @@
 #include "../include/Monomial.h"
+#include <iostream>
 #include <cmath>
 #include <cassert>
 
@@ -14,9 +15,25 @@ double Monomial::coeff()
     return coefficient;
 }
 
+void Monomial::setCoeff(double coeff)
+{
+    coefficient = coeff;
+}
+
 int Monomial::pwr()
 {
     return power;
+}
+
+
+void Monomial::setPwr(int pwr)
+{
+    power = pwr;
+}
+
+void Monomial::print()
+{
+    std::cout << coefficient << "x^" << power; 
 }
 
 double Monomial::evaluate(double value)
@@ -24,26 +41,26 @@ double Monomial::evaluate(double value)
     return (this->coeff() * pow(value, this->pwr()));
 }
 
-Monomial Monomial::derivative()
+void Monomial::derivative()
 {
-    int coeff = this->coeff();
-    double power = this->pwr();
-
-    double new_coeff = coeff * power;
+    double new_coeff = coefficient * power;
     int new_power = power - 1;
 
-    Monomial differentiated({new_coeff, new_power});
-    return differentiated;
+    coefficient = new_coeff;
+    power = new_power;
 }
 
-Monomial Monomial::antiderivative()
+void Monomial::antiderivative()
 {
-    double coeff = this->coeff();
-    int power = this->pwr();
-
-    double new_coeff = coeff / (power + 1);
+    double new_coeff = coefficient / (power + 1);
     int new_power = power + 1;
 
-    Monomial antidifferentiated({new_coeff, new_power});
-    return antidifferentiated;
+    coefficient = new_coeff;
+    power = new_power;
+}
+
+double Monomial::integral(double start, double end)
+{
+    this->antiderivative();
+    return (this->evaluate(end) - this->evaluate(start));
 }

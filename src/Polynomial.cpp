@@ -22,6 +22,15 @@ Polynomial::Polynomial(const std::vector<Monomial> &monomial_terms)
     size = monomial_terms.size();
 }
 
+// ORGANIZE BY DESCENDING ORDER OF TERM POWERS
+void Polynomial::orderPwrs()
+{
+    std::vector<Monomial> orderedPoly;
+
+    std::sort(terms.begin(), terms.end(), [](auto &left, auto &right)
+              { return left.pwr() > right.pwr(); });
+}
+
 // PRINT POLYNOMIAL
 void Polynomial::print()
 {
@@ -77,15 +86,6 @@ void Polynomial::antiderivative()
     {
         terms[i].antiderivative();
     }
-}
-
-// ORGANIZE BY DESCENDING ORDER OF TERM POWERS
-void Polynomial::orderPwrs()
-{
-    std::vector<Monomial> orderedPoly;
-
-    std::sort(terms.begin(), terms.end(), [](auto &left, auto &right)
-              { return left.pwr() > right.pwr(); });
 }
 
 // RETURN INTEGRAL FROM B TO A

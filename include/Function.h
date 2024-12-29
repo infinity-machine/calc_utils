@@ -3,9 +3,9 @@
 class Function
 {
 public:
-    virtual double evaluate(double value) = 0;
-
     virtual void print() = 0;
+    
+    virtual double evaluate(double value) = 0;
 
     virtual void derivative() = 0;
 

@@ -15,24 +15,25 @@ double Monomial::coeff()
     return coefficient;
 }
 
-int Monomial::pwr()
-{
-    return power;
-}
-
-void Monomial::print()
-{
-    std::cout << coefficient << "x^" << power; 
-}
-
 void Monomial::setCoeff(double coeff)
 {
     coefficient = coeff;
 }
 
+int Monomial::pwr()
+{
+    return power;
+}
+
+
 void Monomial::setPwr(int pwr)
 {
     power = pwr;
+}
+
+void Monomial::print()
+{
+    std::cout << coefficient << "x^" << power; 
 }
 
 double Monomial::evaluate(double value)

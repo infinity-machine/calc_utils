@@ -30,8 +30,11 @@ void Polynomial::print()
         if (terms[i].pwr() >= 10)
             std::cout << "(" << terms[i].coeff() << "x^" << terms[i].pwr() << ")";
 
-        if (terms[i].pwr() < 10 && terms[i].pwr() > 0)
+        if (terms[i].pwr() < 10 && terms[i].pwr() > 1)
             std::cout << terms[i].coeff() << "x" << superscriptDigit(terms[i].pwr());
+
+        if(terms[i].pwr() == 1)
+            std::cout << terms[i].coeff() << "x";
 
         if (terms[i].pwr() == 0)
             std::cout << terms[i].coeff();
@@ -78,6 +81,7 @@ Polynomial Polynomial::antiderivative()
     return antidifferentiatedPolynomial;
 }
 
+// ORGANIZE BY DESCENDING ORDER OF TERM POWERS
 void Polynomial::orderPwrs()
 {
     std::vector<Monomial> orderedPoly;

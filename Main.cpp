@@ -35,7 +35,7 @@ int main()
 
     divider();
 
-    Polynomial poly4({{1, 1}, {3, 2}, {1, 3}});
+    Polynomial poly4({{1, 1}, {3, 2}, {2, 3}});
     poly4.orderPwrs();
     poly4.print();
     // Polynomial antipoly4 = poly4.antiderivative();

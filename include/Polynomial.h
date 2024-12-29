@@ -1,3 +1,4 @@
+#include "Function.h"
 #include "Monomial.h"
 #include <vector>
 #include <iostream>
@@ -16,11 +17,9 @@ public:
     void print();
     double evaluate(double value);
 
-    Polynomial derivative();
-    Polynomial antiderivative();
+    void derivative();
+    void antiderivative();
     void orderPwrs();
-
-    Monomial term(int index);
 
     double integral(double start, double end);
 

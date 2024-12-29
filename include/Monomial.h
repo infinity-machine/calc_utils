@@ -1,7 +1,8 @@
 #pragma once
+#include "Function.h"
 #include <vector>
 
-class Monomial
+class Monomial : public Function
 {
 private:
     double coefficient;
@@ -13,8 +14,14 @@ public:
     double coeff();
     int pwr();
 
+    void print();
+
+    void setCoeff(double coeff);
+    void setPwr(int pwr);
+
     double evaluate(double value);
 
-    Monomial derivative();
-    Monomial antiderivative();
+    void derivative();
+    void antiderivative();
+    double integral(double start, double end);
 };

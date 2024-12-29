@@ -1,6 +1,6 @@
 #include "Polynomial.h"
 #include "Monomial.h"
-#include "unicodePwrs.h"
+#include "unicode.h"
 #include <cmath>
 #include <algorithm>
 

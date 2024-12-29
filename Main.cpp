@@ -3,6 +3,7 @@
 #include "Monomial.h"
 #include <vector>
 #include <map>
+#include "LogFunction.h"
 
 void divider()
 {
@@ -50,10 +51,22 @@ int main()
     // std::cout << mono.integral(-1, 3) << std::endl;
     // mono.print();
 
-    Polynomial poly1({{2, 2}, {2, 1}, {2, 0}});
-    poly1.print();
-    divider();
+    // Polynomial poly1({{2, 2}, {2, 1}, {2, 0}});
+    // poly1.print();
+    // divider();
     // poly1.derivative();
     // poly1.print();
-    std::cout << poly1.integral(-2, 2) << std::endl;
+    // std::cout << poly1.integral(-2, 2) << std::endl;
+
+    Monomial mono({1, 2});
+
+    Polynomial poly({{2, 2}, {4, 1}});
+
+    LogFunction aLog(2);
+
+    std::cout << poly.evaluate(2) << std::endl;
+
+    std::cout << aLog.evaluate(poly.evaluate(2)) << std::endl;
+
+    aLog.print();
 }

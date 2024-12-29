@@ -30,5 +30,4 @@ public:
     // MULTIPLICATION / BY POLYNOMIAL
     // = RETURN TRUE / FALSE
     // == TO COPY
-
 };

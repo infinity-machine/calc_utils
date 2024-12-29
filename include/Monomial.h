@@ -21,6 +21,4 @@ public:
     void derivative();
     void antiderivative();
     double integral(double start, double end);
-
-    // MONOMIAL OPERATORS?
 };

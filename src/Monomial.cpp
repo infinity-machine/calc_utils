@@ -25,7 +25,6 @@ int Monomial::pwr()
     return power;
 }
 
-
 void Monomial::setPwr(int pwr)
 {
     power = pwr;
@@ -33,7 +32,7 @@ void Monomial::setPwr(int pwr)
 
 void Monomial::print()
 {
-    std::cout << coefficient << "x^" << power; 
+    std::cout << coefficient << "x^" << power;
 }
 
 double Monomial::evaluate(double value)

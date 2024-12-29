@@ -18,12 +18,12 @@ public:
 
     Polynomial derivative();
     Polynomial antiderivative();
-    Polynomial likeTerms();
+    void orderPwrs();
 
     Monomial term(int index);
 
     double integral(double start, double end);
 
     friend Polynomial operator+(Polynomial& poly1, Polynomial& poly2);
-    // friend Polynomial operator-(const Polynomial& poly1, const Polynomial& poly2);
+    friend Polynomial operator-(Polynomial& poly1, Polynomial& poly2);
 };

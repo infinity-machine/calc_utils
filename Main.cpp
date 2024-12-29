@@ -11,17 +11,20 @@ void divider()
 
 int main()
 {
-    Polynomial poly1({{1, 2}, {2, 1}});
+    Polynomial poly1({{1, 5}, {2, 4}});
     poly1.print();
     divider();
+    // Polynomial combinedPoly = poly1.likeTerms();
+    // combinedPoly.print();
+
     // Polynomial combined = poly1.likeTerms();
     // combined.print();
-    Polynomial poly2({{3, 4}, {5, 2}, {6, 1}});
+    Polynomial poly2({{3, 4}, {5, 3}, {6, 2}, {1, 1}});
     poly2.print();
     divider();
     // std::cout << poly2.term(1).coeff() << std::endl;
     // divider();
-    Polynomial poly3 = poly1 + poly2;
+    Polynomial poly3 = poly1 - poly2;
     // divider();
     poly3.print();
     // divider();
@@ -30,9 +33,11 @@ int main()
 
     // diffpoly3.print();
 
-    // divider();
+    divider();
 
-    // Polynomial poly4({{1, 2}, {3, 4}});
+    Polynomial poly4({{1, 1}, {3, 2}, {1, 3}});
+    poly4.orderPwrs();
+    poly4.print();
     // Polynomial antipoly4 = poly4.antiderivative();
     // antipoly4.print();
     // std::cout << poly4.integral(-2, 2);

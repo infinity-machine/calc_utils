@@ -2,13 +2,11 @@
 #include "Monomial.h"
 #include "unicodePwrs.h"
 #include <cmath>
-#include <cassert>
-#include <variant>
+#include <algorithm>
 
 // CONSTRUCTOR GIVEN COEFFICIENTS AND RESPECTIVE POWERS
 Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomial_terms)
 {
-    // assert(terms.size() > 1);
     for (int i = 0; i < monomial_terms.size(); i++)
     {
         Monomial term(monomial_terms[i]);
@@ -20,7 +18,6 @@ Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomial_terms
 // CONSTRUCTOR GIVEN VECTOR OF MONOMIAL CLASS INSTANCES
 Polynomial::Polynomial(const std::vector<Monomial> &monomial_terms)
 {
-    // assert(monomial_terms.size() > 1);
     terms = monomial_terms;
     size = monomial_terms.size();
 }
@@ -35,6 +32,9 @@ void Polynomial::print()
 
         if (terms[i].pwr() < 10 && terms[i].pwr() > 0)
             std::cout << terms[i].coeff() << "x" << superscriptDigit(terms[i].pwr());
+
+        if (terms[i].pwr() == 0)
+            std::cout << terms[i].coeff();
 
         if ((i + 1) != size)
             std::cout << " + ";
@@ -78,79 +78,15 @@ Polynomial Polynomial::antiderivative()
     return antidifferentiatedPolynomial;
 }
 
-Polynomial Polynomial::likeTerms()
+void Polynomial::orderPwrs()
 {
-    std::vector<Monomial> combined_terms;
-    std::vector<Monomial> copied_terms = terms;
-    double coeff_sum = 0;
+    std::vector<Monomial> orderedPoly;
 
-    // std::cout << copied_terms[0].pwr() << std::endl;
-    // copied_terms.erase(copied_terms.begin());
-    // std::cout << copied_terms[0].pwr() << std::endl;
-
-    while (copied_terms.size() > 0)
-    {
-        if (copied_terms.size() > 1)
-        {
-            if (copied_terms[0].pwr() == copied_terms[1].pwr())
-            {
-                coeff_sum = copied_terms[0].coeff() + copied_terms[1].coeff();
-                Monomial combined_term({coeff_sum, copied_terms[0].pwr()});
-                combined_terms.push_back(combined_term);
-
-                copied_terms.erase(copied_terms.begin());
-                copied_terms.erase(copied_terms.begin() + 1);
-            }
-
-            // else if (copied_terms[0].pwr() > copied_terms[1].pwr())
-            // {
-            //     combined_terms.push_back(terms[0]);
-            //     copied_terms.erase(copied_terms.begin());
-            // }
-
-            // else
-            // {
-            //     combined_terms.push_back(copied_terms[1]);
-            //     copied_terms.erase(copied_terms.begin() + 1);
-            // }
-        }
-
-        else
-        {
-            combined_terms.push_back(copied_terms[0]);
-            copied_terms.erase(copied_terms.begin());
-        }
-    }
-
-    Polynomial combinedPolynomial(combined_terms);
-    return combinedPolynomial;
+    std::sort(terms.begin(), terms.end(), [](auto &left, auto &right)
+              { return left.pwr() > right.pwr(); });
 }
 
-// for (int i = 0; i < size; i++)
-// {
-// if (copied_terms[i].pwr() == copied_terms[i + 1].pwr())
-// {
-//     coeff_sum = copied_terms[0].coeff() + copied_terms[i].coeff();
-//     Monomial combined_term({coeff_sum, copied_terms[0].pwr()});
-//     combined_terms.push_back(combined_term);
-// }
-
-//     else if (copied_terms[i].pwr() > copied_terms[i + 1].pwr())
-//     {
-//         combined_terms.push_back(terms[i]);
-//         copied_terms.erase(copied_terms.begin() + i);
-//     }
-
-//     else
-//     {
-//         combined_terms.push_back(copied_terms[i + 1]);
-//         copied_terms.erase(copied_terms.begin() + i);
-//     }
-// }
-
-// Polynomial combinedPolynomial(combined_terms);
-// return combinedPolynomial;
-
+// RETURN TERM AT INDEX
 Monomial Polynomial::term(int index)
 {
     return terms[index];
@@ -166,72 +102,95 @@ double Polynomial::integral(double start, double end)
 // POLYNOMIAL ADDITION
 Polynomial operator+(Polynomial &poly1, Polynomial &poly2)
 {
-    std::vector<Monomial> conglomerated_terms;
+    std::vector<Monomial> new_terms;
 
     int i = 0, j = 0;
-
-    while (i < poly1.size || j < poly2.size)
+    while (i < poly1.size && j < poly2.size)
     {
-        if (i < poly1.size)
+        if (poly1.terms[i].pwr() == poly2.terms[j].pwr())
         {
-            conglomerated_terms.push_back(poly1.terms[i]);
+            double coeff_sum = poly1.terms[i].coeff() + poly2.terms[j].coeff();
+
+            if (coeff_sum != 0)
+            {
+                new_terms.push_back(std::make_pair(coeff_sum, poly1.terms[i].pwr()));
+            }
+            i++;
+            j++;
+        }
+        else if (poly1.terms[i].pwr() > poly2.terms[j].pwr())
+        {
+            new_terms.push_back(poly1.terms[i]);
             i++;
         }
-
-        if (j < poly2.size)
+        else
         {
-            conglomerated_terms.push_back(poly2.terms[j]);
+            new_terms.push_back(poly2.terms[j]);
             j++;
         }
     }
 
-    Polynomial conglomeratedPolynomial(conglomerated_terms);
-    conglomeratedPolynomial.print();
-    Polynomial combinedPolynomial = conglomeratedPolynomial.likeTerms();
-    return combinedPolynomial;
+    while (i < poly1.size)
+    {
+        new_terms.push_back(poly1.terms[i]);
+        i++;
+    }
+
+    while (j < poly2.size)
+    {
+        new_terms.push_back(poly2.terms[j]);
+        j++;
+    }
+
+    Polynomial newPolynomial(new_terms);
+    return newPolynomial;
 }
 
 // // POLYNOMIAL SUBTRACTION
-// Polynomial operator-(const Polynomial &poly1, const Polynomial &poly2)
-// {
-//     std::vector<std::pair<double, double>> new_coeff_pwr;
+Polynomial operator-(Polynomial &poly1, Polynomial &poly2)
+{
+    std::vector<Monomial> new_terms;
 
-//     int i = 0, j = 0;
-//     while (i < poly1.size && j < poly2.size)
-//     {
-//         if (poly1.coeff_pwr[i].second == poly2.coeff_pwr[j].second)
-//         {
-//             double coeff_diff = poly1.coeff_pwr[i].first - poly2.coeff_pwr[j].first;
-//             if (coeff_diff != 0)
-//             {
-//                 new_coeff_pwr.push_back(std::make_pair(coeff_diff, poly1.coeff_pwr[i].second));
-//             }
-//             i++;
-//             j++;
-//         }
-//         else if (poly1.coeff_pwr[i].second > poly2.coeff_pwr[j].second)
-//         {
-//             new_coeff_pwr.push_back(poly1.coeff_pwr[i]);
-//             i++;
-//         }
-//         else
-//         {
-//             new_coeff_pwr.push_back(poly2.coeff_pwr[j]);
-//             j++;
-//         }
-//     }
+    int i = 0, j = 0;
+    while (i < poly1.size && j < poly2.size)
+    {
+        if (poly1.terms[i].pwr() == poly2.terms[j].pwr())
+        {
+            double coeff_sum = poly1.terms[i].coeff() - poly2.terms[j].coeff();
 
-//     while (i < poly1.size)
-//     {
-//         new_coeff_pwr.push_back(poly1.coeff_pwr[i]);
-//         i++;
-//     }
+            if (coeff_sum != 0)
+            {
+                new_terms.push_back(std::make_pair(coeff_sum, poly1.terms[i].pwr()));
+            }
+            i++;
+            j++;
+        }
+        else if (poly1.terms[i].pwr() > poly2.terms[j].pwr())
+        {
+            new_terms.push_back(poly1.terms[i]);
+            i++;
+        }
+        else
+        {
+            Monomial neg_term({-poly2.terms[j].coeff(), poly2.terms[j].pwr()});
+            new_terms.push_back(neg_term);
+            j++;
+        }
+    }
 
-//     while (j < poly2.size)
-//     {
-//         new_coeff_pwr.push_back(poly2.coeff_pwr[j]);
-//         j++;
-//     }
-//     Polynomial newPolynomial(new_coeff_pwr);
-//     return newPolynomial;
-// }
+    while (i < poly1.size)
+    {
+        new_terms.push_back(poly1.terms[i]);
+        i++;
+    }
+
+    while (j < poly2.size)
+    {
+        Monomial neg_term({-poly2.terms[j].coeff(), poly2.terms[j].pwr()});
+        new_terms.push_back(neg_term);
+        j++;
+    }
+
+    Polynomial newPolynomial(new_terms);
+    return newPolynomial;
+}

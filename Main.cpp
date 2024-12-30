@@ -60,11 +60,13 @@ int main()
 
     Monomial mono({2, 4});
 
-    Polynomial poly({{2, 1}, {4, 2}});
+    Polynomial poly({{2, 2}, {4, 1}});
+    Polynomial poly2({{3, 2}, {3, 1}});
+
 
     // poly.orderPwrs();
 
-    (poly * mono).print();
+    (poly - poly2).print();
 
     // LogFunction aLog(2);
 

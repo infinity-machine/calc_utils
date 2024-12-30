@@ -3,6 +3,7 @@
 #include "unicode.h"
 #include <cmath>
 #include <algorithm>
+#include <sstream>
 
 // CONSTRUCTOR GIVEN COEFFICIENTS AND RESPECTIVE POWERS
 Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomial_terms)
@@ -12,6 +13,7 @@ Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomial_terms
         Monomial term(monomial_terms[i]);
         terms.push_back(term);
     }
+
     size = terms.size();
 }
 
@@ -34,42 +36,51 @@ void Polynomial::print()
 {
     for (int i = 0; i < size; i++)
     {
-        if (terms[i].pwr() >= 10)
-            std::cout << "(" << terms[i].coeff() << "x^" << terms[i].pwr() << ")";
-
-        if (terms[i].pwr() < 10 && terms[i].pwr() > 1)
-            std::cout << terms[i].coeff() << "x" << superscriptDigit(terms[i].pwr());
-
-        if (terms[i].pwr() == 1)
-            std::cout << terms[i].coeff() << "x";
-
-        if (terms[i].pwr() == 0)
-            std::cout << terms[i].coeff();
+        std::cout << terms[i].string();
 
         if ((i + 1) != size)
             std::cout << " + ";
     }
-    std::cout << "\n";
+}
+
+std::string Polynomial::string()
+{
+    std::stringstream ss;
+
+    for (int i = 0; i < size; i++)
+    {
+        ss << terms[i].string();
+
+        if ((i + 1) != size)
+            ss << " + ";
+    }
+
+    std::string return_string = ss.str();
+
+    return return_string;
 }
 
 // EVALUATE POLYNOMIAL FOR GIVEN VALUE
 double Polynomial::evaluate(double value)
 {
     double sum = 0;
+
     for (int i = 0; i < size; i++)
     {
         sum = sum + (terms[i].evaluate(value));
     }
+
     return sum;
 }
 
-// RETURN DIFFERENTIATED POLYNOMIAL
-void Polynomial::derivative()
+// DIFFERENTIATE POLYNOMIAL
+void Polynomial::differentiate()
 {
     for (int i = 0; i < size; i++)
     {
         if (terms[i].pwr() != 0)
-            terms[i].derivative();
+            terms[i].differentiate();
+
         else
         {
             terms.erase(terms.begin() + i);
@@ -78,13 +89,54 @@ void Polynomial::derivative()
     }
 }
 
-// RETURN ANTIDIFFERENTIATED POLYNOMIAL
-void Polynomial::antiderivative()
+// RETURN DIFFERENTIATED POLYNOMIAL
+Polynomial Polynomial::derivative()
+{
+    std::vector<Monomial> differentiatedTerms;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (terms[i].pwr() != 0)
+            differentiatedTerms.push_back(terms[i].derivative());
+
+        else
+        {
+            terms.erase(terms.begin() + i);
+            size--;
+        }
+    }
+
+    Polynomial differentiatedPoly(differentiatedTerms);
+    return differentiatedPoly;
+}
+
+// ANTIDIFFERENTIATE POLYNOMIAL
+void Polynomial::antidifferentiate()
 {
     for (int i = 0; i < size; i++)
     {
-        terms[i].antiderivative();
+        terms[i].antidifferentiate();
     }
+}
+
+// RETURN ANTIDIFFERENTIATED POLYNOMIAL
+Polynomial Polynomial::antiderivative()
+{
+    std::vector<Monomial> antidifferentiatedTerms;
+    for (int i = 0; i < size; i++)
+    {
+        if (terms[i].pwr() != 0)
+            antidifferentiatedTerms.push_back(terms[i].antiderivative());
+
+        else
+        {
+            terms.erase(terms.begin() + i);
+            size--;
+        }
+    }
+
+    Polynomial antidifferentiatedPoly(antidifferentiatedTerms);
+    return antidifferentiatedPoly;
 }
 
 // RETURN INTEGRAL FROM B TO A
@@ -92,8 +144,9 @@ double Polynomial::integral(double start, double end)
 {
     for (int i = 0; i < size; i++)
     {
-        terms[i].antiderivative();
+        terms[i].antidifferentiate();
     }
+
     return (this->evaluate(end) - this->evaluate(start));
 }
 
@@ -103,6 +156,7 @@ Polynomial operator+(Polynomial &poly1, Polynomial &poly2)
     std::vector<Monomial> new_terms;
 
     int i = 0, j = 0;
+
     while (i < poly1.size && j < poly2.size)
     {
         if (poly1.terms[i].pwr() == poly2.terms[j].pwr())
@@ -117,11 +171,13 @@ Polynomial operator+(Polynomial &poly1, Polynomial &poly2)
             i++;
             j++;
         }
+
         else if (poly1.terms[i].pwr() > poly2.terms[j].pwr())
         {
             new_terms.push_back(poly1.terms[i]);
             i++;
         }
+
         else
         {
             new_terms.push_back(poly2.terms[j]);
@@ -151,6 +207,7 @@ Polynomial operator-(Polynomial &poly1, Polynomial &poly2)
     std::vector<Monomial> new_terms;
 
     int i = 0, j = 0;
+
     while (i < poly1.size && j < poly2.size)
     {
         if (poly1.terms[i].pwr() == poly2.terms[j].pwr())
@@ -165,11 +222,13 @@ Polynomial operator-(Polynomial &poly1, Polynomial &poly2)
             i++;
             j++;
         }
+
         else if (poly1.terms[i].pwr() > poly2.terms[j].pwr())
         {
             new_terms.push_back(poly1.terms[i]);
             i++;
         }
+
         else
         {
             Monomial negTerm({-poly2.terms[j].coeff(), poly2.terms[j].pwr()});
@@ -198,10 +257,12 @@ Polynomial operator-(Polynomial &poly1, Polynomial &poly2)
 Polynomial operator*(double constant, Polynomial &poly)
 {
     std::vector<Monomial> prod_terms;
+
     for (int i = 0; i < poly.size; i++)
     {
         prod_terms.push_back(constant * poly.terms[i]);
     }
+
     Polynomial prodPoly(prod_terms);
     return prodPoly;
 }
@@ -209,10 +270,12 @@ Polynomial operator*(double constant, Polynomial &poly)
 Polynomial operator*(Polynomial &poly, double constant)
 {
     std::vector<Monomial> prod_terms;
+
     for (int i = 0; i < poly.size; i++)
     {
         prod_terms.push_back(constant * poly.terms[i]);
     }
+
     Polynomial prodPoly(prod_terms);
     return prodPoly;
 }
@@ -220,10 +283,12 @@ Polynomial operator*(Polynomial &poly, double constant)
 Polynomial operator*(Monomial &mono, Polynomial &poly)
 {
     std::vector<Monomial> prod_terms;
+
     for (int i = 0; i < poly.size; i++)
     {
         prod_terms.push_back(mono * poly.terms[i]);
     }
+
     Polynomial prodPoly(prod_terms);
     return prodPoly;
 }
@@ -231,10 +296,12 @@ Polynomial operator*(Monomial &mono, Polynomial &poly)
 Polynomial operator*(Polynomial &poly, Monomial &mono)
 {
     std::vector<Monomial> prod_terms;
+
     for (int i = 0; i < poly.size; i++)
     {
         prod_terms.push_back(mono * poly.terms[i]);
     }
+
     Polynomial prodPoly(prod_terms);
     return prodPoly;
 }
@@ -248,10 +315,12 @@ Polynomial operator*(Polynomial &poly, Monomial &mono)
 Polynomial operator/(Polynomial &poly, double constant)
 {
     std::vector<Monomial> quotient_terms;
+
     for (int i = 0; i < poly.size; i++)
     {
         quotient_terms.push_back(poly.terms[i] / constant);
     }
+    
     Polynomial prodPoly(quotient_terms);
     return prodPoly;
 }

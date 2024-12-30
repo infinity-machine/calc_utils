@@ -45,28 +45,30 @@ int main()
     // std::cout << poly4.integral(-2, 2);
     // std::cout << antipoly4.evaluate(2) << std::endl;
 
-    // Monomial mono({2, 1});
+    // Monomial mono({3, 2});
+    // mono.print();
+    // std::cout << mono.string();
     // mono.antiderivative();
     // mono.derivative();
     // std::cout << mono.integral(-1, 3) << std::endl;
     // mono.print();
 
-    // Polynomial poly1({{2, 2}, {2, 1}, {2, 0}});
-    // poly1.print();
+    Polynomial poly1({{2, 2}, {2, 1}, {2, 0}});
+    std::cout << poly1.string();
     // divider();
     // poly1.derivative();
     // poly1.print();
     // std::cout << poly1.integral(-2, 2) << std::endl;
 
-    Monomial mono({2, 4});
+    // Monomial mono({2, 4});
 
-    Polynomial poly({{2, 2}, {4, 1}});
-    Polynomial poly2({{3, 2}, {3, 1}});
+    // Polynomial poly({{2, 2}, {4, 1}});
+    // Polynomial poly2({{3, 2}, {3, 1}});
 
 
     // poly.orderPwrs();
 
-    (poly - poly2).print();
+    // (poly - poly2).print();
 
     // LogFunction aLog(2);
 

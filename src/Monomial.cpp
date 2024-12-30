@@ -1,7 +1,9 @@
 #include "../include/Monomial.h"
+#include "unicode.h"
 #include <iostream>
 #include <cmath>
 #include <cassert>
+#include <sstream>
 
 Monomial::Monomial(const std::pair<double, int> &coefficients_powers)
 {
@@ -32,7 +34,38 @@ void Monomial::setPwr(int pwr)
 
 void Monomial::print()
 {
-    std::cout << coefficient << "x^" << power;
+    if (power >= 10)
+        std::cout << "(" << coefficient << "x^" << power << ")";
+
+    if (power < 10 && power > 1)
+        std::cout << coefficient << "x" << superscriptDigit(power);
+
+    if (power == 1)
+        std::cout << coefficient << "x";
+
+    if (power == 0)
+        std::cout << coefficient;
+}
+
+std::string Monomial::string()
+{
+    std::stringstream ss;
+
+    if (power >= 10)
+        ss << "(" << coefficient << "x^" << power << ")";
+
+    if (power < 10 && power > 1)
+        ss << coefficient << "x" << superscriptDigit(power);
+
+    if (power == 1)
+        ss << coefficient << "x";
+
+    if (power == 0)
+        ss << coefficient;
+
+    std::string return_string = ss.str();
+
+    return return_string;
 }
 
 double Monomial::evaluate(double value)
@@ -40,7 +73,7 @@ double Monomial::evaluate(double value)
     return (this->coeff() * pow(value, this->pwr()));
 }
 
-void Monomial::derivative()
+void Monomial::differentiate()
 {
     double new_coeff = coefficient * power;
     int new_power = power - 1;
@@ -49,7 +82,16 @@ void Monomial::derivative()
     power = new_power;
 }
 
-void Monomial::antiderivative()
+Monomial Monomial::derivative()
+{
+    double new_coeff = coefficient * power;
+    int new_power = power - 1;
+
+    Monomial differentiatedMono({new_coeff, new_power});
+    return differentiatedMono;
+}
+
+void Monomial::antidifferentiate()
 {
     double new_coeff = coefficient / (power + 1);
     int new_power = power + 1;
@@ -58,27 +100,36 @@ void Monomial::antiderivative()
     power = new_power;
 }
 
+Monomial Monomial::antiderivative()
+{
+    double new_coeff = coefficient / (power + 1);
+    int new_power = power + 1;
+
+    Monomial antidifferentiatedMono({new_coeff, new_power});
+    return antidifferentiatedMono;
+}
+
 double Monomial::integral(double start, double end)
 {
-    this->antiderivative();
+    this->antidifferentiate();
     return (this->evaluate(end) - this->evaluate(start));
 }
 
-Monomial operator*(double constant, Monomial& mono)
-{      
-    double prod_coeff = mono.coefficient * constant;
-    Monomial newMono({prod_coeff, mono.power});
-    return newMono;
-}
-
-Monomial operator*(Monomial& mono, double constant)
+Monomial operator*(double constant, Monomial &mono)
 {
     double prod_coeff = mono.coefficient * constant;
     Monomial newMono({prod_coeff, mono.power});
     return newMono;
 }
 
-Monomial operator*(Monomial&mono1, Monomial&mono2)
+Monomial operator*(Monomial &mono, double constant)
+{
+    double prod_coeff = mono.coefficient * constant;
+    Monomial newMono({prod_coeff, mono.power});
+    return newMono;
+}
+
+Monomial operator*(Monomial &mono1, Monomial &mono2)
 {
     double prod_coeff = mono1.coefficient * mono2.coefficient;
     double prod_power = mono1.power + mono2.power;
@@ -86,7 +137,7 @@ Monomial operator*(Monomial&mono1, Monomial&mono2)
     return newMono;
 }
 
-Monomial operator/(Monomial& mono, double constant)
+Monomial operator/(Monomial &mono, double constant)
 {
     double quotient_coeff = mono.coefficient / constant;
     Monomial newMono({quotient_coeff, mono.power});

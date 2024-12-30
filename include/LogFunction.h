@@ -14,6 +14,6 @@ public:
     // DERIVATIVE OF A LOG FUNCTION CAN BE A RECIPROCAL FUNCITON OR RATIONAL FUNCTION
 
     // Function* derivative();
-    void antiderivative();
-    double integral();
+    // void antiderivative();
+    // double integral();
 };

@@ -8,6 +8,7 @@ class Polynomial : public Function
 private:
     std::vector<Monomial> terms;
     int size;
+    int degree;
 
 public:
     Polynomial(const std::vector<std::pair<double, int>> &terms);
@@ -16,9 +17,13 @@ public:
     void orderPwrs();
 
     void print();
+    std::string string();
+    
     double evaluate(double value);
-    void derivative();
-    void antiderivative();
+    void differentiate();
+    Polynomial derivative();
+    void antidifferentiate();
+    Polynomial antiderivative();
     double integral(double start, double end);
 
     friend Polynomial operator+(Polynomial& poly1, Polynomial& poly2);

@@ -17,9 +17,12 @@ public:
     void setPwr(int pwr);
 
     void print();
+    std::string string();
     double evaluate(double value);
-    void derivative();
-    void antiderivative();
+    void differentiate();
+    Monomial derivative();
+    void antidifferentiate();
+    Monomial antiderivative();
     double integral(double start, double end);
 
     friend Monomial operator*(double constant, Monomial& mono);

@@ -1,4 +1,7 @@
 #include "LogFunction.h"
+#include "Function.h"
+#include "Polynomial.h"
+#include "Monomial.h"
 #include "unicode.h"
 #include <iostream>
 
@@ -23,3 +26,11 @@ double LogFunction::evaluate(double value)
     else return log(value) / log(base);
     
 }
+
+// Function* LogFunction::derivative()
+// {
+//     Monomial mono1({1, 2});
+//     Monomial mono2({3, 4});
+//     Polynomial* newPoly;
+//     return newPoly;
+// }

@@ -58,15 +58,23 @@ int main()
     // poly1.print();
     // std::cout << poly1.integral(-2, 2) << std::endl;
 
-    Monomial mono({1, 2});
+    Monomial mono({2, 4});
 
-    Polynomial poly({{2, 2}, {4, 1}});
+    Polynomial poly({{2, 1}, {4, 2}});
 
-    LogFunction aLog(2);
+    // poly.orderPwrs();
 
-    std::cout << poly.evaluate(2) << std::endl;
+    (poly * mono).print();
 
-    std::cout << aLog.evaluate(poly.evaluate(2)) << std::endl;
+    // LogFunction aLog(2);
 
-    aLog.print();
+    // std::cout << poly.evaluate(2) << std::endl;
+
+    // std::cout << aLog.evaluate(poly.evaluate(2)) << std::endl;
+
+    // aLog.print();
+
+    // 5 * mono;
+    // mono * 5;
+    // (mono*5).print();
 }

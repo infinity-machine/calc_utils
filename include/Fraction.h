@@ -1,5 +1,3 @@
-#include <string>
-
 class Fraction
 {
 private:
@@ -7,5 +5,6 @@ private:
     int denominator;
 
 public:
-    std::string print();
+    void print();
+    double decimal();
 };

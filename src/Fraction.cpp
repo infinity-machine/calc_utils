@@ -2,7 +2,12 @@
 #include <string>
 #include <iostream>
 
-// std::string Fraction::print()
-// {
-//     std::cout << numerator << " / " << denominator << std::endl;
-// }
+void Fraction::print()
+{
+    std::cout << numerator << " / " << denominator << std::endl;
+}
+
+double Fraction::decimal()
+{
+    return numerator / denominator;
+}

@@ -21,4 +21,10 @@ public:
     void derivative();
     void antiderivative();
     double integral(double start, double end);
+
+    friend Monomial operator*(double constant, Monomial& mono);
+    friend Monomial operator*(Monomial& mono, double constant);
+    friend Monomial operator*(Monomial& mono1, Monomial& mono2);
+
+    friend Monomial operator/(Monomial& mono, double constant);
 };

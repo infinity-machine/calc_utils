@@ -24,8 +24,15 @@ public:
     friend Polynomial operator+(Polynomial& poly1, Polynomial& poly2);
     friend Polynomial operator-(Polynomial& poly1, Polynomial& poly2);
 
+    friend Polynomial operator*(double constant, Polynomial& thisPoly);
+    friend Polynomial operator*(Polynomial& poly, double constant);
+    friend Polynomial operator*(Monomial& mono, Polynomial& poly);
+    friend Polynomial operator*(Polynomial& poly, Monomial& mono);
+    // friend Polynomial operator*(Polynomial& poly1, Polynomial& poly2);
+
+    friend Polynomial operator/(Polynomial& poly, double constant);
+
     // NEED OPERATOR OVERLOADS FOR
-    // MULTIPLICATION / BY CONSTANT
     // MULTIPLICATION / BY MONOMIAL
     // MULTIPLICATION / BY POLYNOMIAL
     // = RETURN TRUE / FALSE

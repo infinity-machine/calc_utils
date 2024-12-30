@@ -63,3 +63,32 @@ double Monomial::integral(double start, double end)
     this->antiderivative();
     return (this->evaluate(end) - this->evaluate(start));
 }
+
+Monomial operator*(double constant, Monomial& mono)
+{      
+    double prod_coeff = mono.coefficient * constant;
+    Monomial newMono({prod_coeff, mono.power});
+    return newMono;
+}
+
+Monomial operator*(Monomial& mono, double constant)
+{
+    double prod_coeff = mono.coefficient * constant;
+    Monomial newMono({prod_coeff, mono.power});
+    return newMono;
+}
+
+Monomial operator*(Monomial&mono1, Monomial&mono2)
+{
+    double prod_coeff = mono1.coefficient * mono2.coefficient;
+    double prod_power = mono1.power + mono2.power;
+    Monomial newMono({prod_coeff, prod_power});
+    return newMono;
+}
+
+Monomial operator/(Monomial& mono, double constant)
+{
+    double quotient_coeff = mono.coefficient / constant;
+    Monomial newMono({quotient_coeff, mono.power});
+    return newMono;
+}

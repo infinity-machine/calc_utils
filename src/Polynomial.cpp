@@ -25,8 +25,6 @@ Polynomial::Polynomial(const std::vector<Monomial> &monomial_terms)
 // ORGANIZE BY DESCENDING ORDER OF TERM POWERS
 void Polynomial::orderPwrs()
 {
-    std::vector<Monomial> orderedPoly;
-
     std::sort(terms.begin(), terms.end(), [](auto &left, auto &right)
               { return left.pwr() > right.pwr(); });
 }
@@ -192,4 +190,65 @@ Polynomial operator-(Polynomial &poly1, Polynomial &poly2)
 
     Polynomial newPolynomial(new_terms);
     return newPolynomial;
+}
+
+Polynomial operator*(double constant, Polynomial& poly)
+{
+    std::vector<Monomial> prod_terms;
+    for(int i = 0; i < poly.size; i++)
+    {
+        prod_terms.push_back(constant * poly.terms[i]);
+    }
+    Polynomial prodPoly(prod_terms);
+    return prodPoly;
+}
+
+Polynomial operator*(Polynomial& poly, double constant)
+{
+    std::vector<Monomial> prod_terms;
+    for(int i = 0; i < poly.size; i++)
+    {
+        prod_terms.push_back(constant * poly.terms[i]);
+    }
+    Polynomial prodPoly(prod_terms);
+    return prodPoly;
+}
+
+Polynomial operator*(Monomial& mono, Polynomial& poly)
+{
+    std::vector<Monomial> prod_terms;
+    for(int i = 0; i < poly.size; i++)
+    {
+        prod_terms.push_back(mono * poly.terms[i]);
+    }   
+    Polynomial prodPoly(prod_terms);
+    return prodPoly;
+}
+
+Polynomial operator*(Polynomial& poly, Monomial& mono)
+{
+    std::vector<Monomial> prod_terms;
+    for(int i = 0; i < poly.size; i++)
+    {
+        prod_terms.push_back(mono * poly.terms[i]);
+    }
+    Polynomial prodPoly(prod_terms);
+    return prodPoly;
+}
+
+// Polynomial operator*(Polynomial& poly1, Polynomial& poly2)
+// {
+//     std::vector<Monomial> prod_terms;
+
+// }
+
+Polynomial operator/(Polynomial&poly, double constant)
+{
+    std::vector<Monomial> quotient_terms;
+    for(int i = 0; i < poly.size; i++)
+    {
+        quotient_terms.push_back(poly.terms[i] / constant);
+    }
+    Polynomial prodPoly(quotient_terms);
+    return prodPoly;
 }

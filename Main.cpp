@@ -4,7 +4,9 @@
 #include <vector>
 #include <map>
 #include "LogFunction.h"
-#include "RecipFunction.h"
+#include "ReciprocalFunction.h"
+#include "Fraction.h"
+#include <numeric>
 
 void divider()
 {
@@ -63,17 +65,24 @@ int main()
     // std::cout << poly1.integral(-2, 2) << std::endl;
 
     Monomial mono({2, 4});
-    Monomial mono2 = mono;
+    // Monomial mono2 = mono;
 
     Polynomial poly1({{1, 2}, {2, 3}});
 
-    ReciprocalFunction<Monomial> recip1(mono);
+    ReciprocalFunction<Monomial> recip1(2, mono);
+
+    // std::cout << (int)2.4 % 2 << std::endl;
 
     recip1.print();
 
-    ReciprocalFunction<Polynomial> recip2(poly1);
-    recip2.print();
-    
+    // ReciprocalFunction<Polynomial> recip2(poly1);
+    // recip2.print();
+
+    // Fraction afrac(15, 75);
+    // std::cout << std::gcd(15, 75) << std::endl;
+    // afrac.reduce();
+    // afrac.print();
+
     // std::cout << mono.integral(-2, 2);
 
     // ReciprocalFunction recip1({2, 3});

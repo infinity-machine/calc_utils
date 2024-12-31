@@ -154,8 +154,3 @@ Monomial operator/(Monomial &mono, double constant)
     Monomial newMono({quotient_coeff, mono.power});
     return newMono;
 }
-
-// ReciprocalFunction operator/(double constant, Monomial&mono)
-// {
-
-// }

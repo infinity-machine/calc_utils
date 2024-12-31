@@ -1,3 +1,5 @@
+#pragma once
+
 class Fraction
 {
 private:
@@ -5,7 +7,10 @@ private:
     int denominator;
 
 public:
+    Fraction(double num, double denom);
     void print();
     double decimal();
-    void lowestTerms();
+    void reduce();
+
+    // friend Fraction operator+(Fraction fraction1, Fraction fraction2);
 };

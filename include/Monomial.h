@@ -1,6 +1,5 @@
 #pragma once
 #include "Function.h"
-// #include "RecipFunction.h"
 #include <vector>
 
 class Monomial : public Function
@@ -35,5 +34,4 @@ public:
     friend Monomial operator*(Monomial& mono1, Monomial& mono2);
 
     friend Monomial operator/(Monomial& mono, double constant);
-    // friend ReciprocalFunction operator/(double constant, Monomial& mono);
 };

@@ -5,6 +5,15 @@
 #include <algorithm>
 #include <sstream>
 
+Polynomial::Polynomial()
+{
+    size = 1;
+    degree = 1;
+
+    Monomial term({1, 1});
+    terms.push_back(term);
+}
+
 // CONSTRUCTOR GIVEN COEFFICIENTS AND RESPECTIVE POWERS
 Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomial_terms)
 {
@@ -22,6 +31,19 @@ Polynomial::Polynomial(const std::vector<Monomial> &monomial_terms)
 {
     terms = monomial_terms;
     size = monomial_terms.size();
+}
+
+int Polynomial::returnSize()
+{
+    return size;
+}
+
+void Polynomial::addTerm(Monomial term)
+{
+    terms.push_back(term);
+    size++;
+    degree = term.pwr();
+    this->orderPwrs();
 }
 
 // ORGANIZE BY DESCENDING ORDER OF TERM POWERS
@@ -142,12 +164,13 @@ Polynomial Polynomial::antiderivative()
 // RETURN INTEGRAL FROM B TO A
 double Polynomial::integral(double start, double end)
 {
+    Monomial antidifferentiated_term;
     for (int i = 0; i < size; i++)
     {
-        terms[i].antidifferentiate();
+        Monomial antidifferentiated_term = terms[i].antiderivative();
     }
 
-    return (this->evaluate(end) - this->evaluate(start));
+    return (antidifferentiated_term.evaluate(end) - this->evaluate(start));
 }
 
 // POLYNOMIAL ADDITION

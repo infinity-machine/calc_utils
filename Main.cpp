@@ -4,12 +4,12 @@
 #include <vector>
 #include <map>
 #include "LogFunction.h"
+#include "RecipFunction.h"
 
 void divider()
 {
     std::cout << "- - - - - - - -" << std::endl;
 }
-
 
 int main()
 {
@@ -30,7 +30,7 @@ int main()
     // divider();
     // poly3.print();
     // divider();
-    
+
     // Polynomial diffpoly3 = poly3.derivative();
 
     // diffpoly3.print();
@@ -53,18 +53,39 @@ int main()
     // std::cout << mono.integral(-1, 3) << std::endl;
     // mono.print();
 
-    Polynomial poly1({{2, 2}, {2, 1}, {2, 0}});
-    std::cout << poly1.string();
+    // Polynomial poly1({{2, 2}, {2, 1}, {2, 0}});
+    // Polynomial poly2 = poly1;
+    // poly2.print();
+    // std::cout << poly1.string() << std::endl;
     // divider();
     // poly1.derivative();
     // poly1.print();
     // std::cout << poly1.integral(-2, 2) << std::endl;
 
-    // Monomial mono({2, 4});
+    Monomial mono({2, 4});
+    Monomial mono2 = mono;
+
+    Polynomial poly1({{1, 2}, {2, 3}});
+
+    ReciprocalFunction<Monomial> recip1(mono);
+
+    recip1.print();
+
+    ReciprocalFunction<Polynomial> recip2(poly1);
+    recip2.print();
+    
+    // std::cout << mono.integral(-2, 2);
+
+    // ReciprocalFunction recip1({2, 3});
+
+    // recip1.print();
+
+    // poly1.addTerm(mono);
+
+    // poly1.print();
 
     // Polynomial poly({{2, 2}, {4, 1}});
     // Polynomial poly2({{3, 2}, {3, 1}});
-
 
     // poly.orderPwrs();
 

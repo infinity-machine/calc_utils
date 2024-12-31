@@ -1,15 +1,26 @@
-#include "../include/Monomial.h"
+#include "Monomial.h"
 #include "unicode.h"
 #include <iostream>
 #include <cmath>
 #include <cassert>
 #include <sstream>
 
+Monomial::Monomial()
+{
+    coefficient = 1;
+    power = 1;
+}
+
 Monomial::Monomial(const std::pair<double, int> &coefficients_powers)
 {
     assert(coefficients_powers.second >= 0);
     coefficient = coefficients_powers.first;
     power = coefficients_powers.second;
+}
+
+int Monomial::returnSize()
+{
+    return size;
 }
 
 double Monomial::coeff()
@@ -111,8 +122,8 @@ Monomial Monomial::antiderivative()
 
 double Monomial::integral(double start, double end)
 {
-    this->antidifferentiate();
-    return (this->evaluate(end) - this->evaluate(start));
+    Monomial antiderivative = this->antiderivative();
+    return (antiderivative.evaluate(end) - antiderivative.evaluate(start));
 }
 
 Monomial operator*(double constant, Monomial &mono)
@@ -143,3 +154,8 @@ Monomial operator/(Monomial &mono, double constant)
     Monomial newMono({quotient_coeff, mono.power});
     return newMono;
 }
+
+// ReciprocalFunction operator/(double constant, Monomial&mono)
+// {
+
+// }

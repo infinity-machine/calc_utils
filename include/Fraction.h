@@ -7,4 +7,5 @@ private:
 public:
     void print();
     double decimal();
+    void lowestTerms();
 };

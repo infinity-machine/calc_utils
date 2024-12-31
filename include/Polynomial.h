@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Function.h"
 #include "Monomial.h"
 #include <vector>
@@ -11,14 +13,19 @@ private:
     int degree;
 
 public:
+    Polynomial();
     Polynomial(const std::vector<std::pair<double, int>> &terms);
     Polynomial(const std::vector<Monomial> &terms);
+
+    int returnSize();
+
+    void addTerm(Monomial term);
 
     void orderPwrs();
 
     void print();
     std::string string();
-    
+
     double evaluate(double value);
     void differentiate();
     Polynomial derivative();
@@ -36,6 +43,11 @@ public:
     // friend Polynomial operator*(Polynomial& poly1, Polynomial& poly2);
 
     friend Polynomial operator/(Polynomial& poly, double constant);
+
+    // void operator=(std::vector<Monomial> mono_vector)
+    // {
+
+    // }
 
     // NEED OPERATOR OVERLOADS FOR
     // MULTIPLICATION / BY MONOMIAL

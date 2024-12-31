@@ -1,5 +1,6 @@
 #pragma once
 #include "Function.h"
+// #include "RecipFunction.h"
 #include <vector>
 
 class Monomial : public Function
@@ -7,9 +8,13 @@ class Monomial : public Function
 private:
     double coefficient;
     int power;
+    int size = 1;
 
 public:
+    Monomial();
     Monomial(const std::pair<double, int> &coefficients_powers);
+
+    int returnSize();
 
     double coeff();
     void setCoeff(double coeff);
@@ -30,4 +35,5 @@ public:
     friend Monomial operator*(Monomial& mono1, Monomial& mono2);
 
     friend Monomial operator/(Monomial& mono, double constant);
+    // friend ReciprocalFunction operator/(double constant, Monomial& mono);
 };

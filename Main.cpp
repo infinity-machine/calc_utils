@@ -69,7 +69,7 @@ int main()
 
     Polynomial poly1({{1, 2}, {2, 3}});
 
-    ReciprocalFunction<Monomial> recip1(2, mono);
+    ReciprocalFunction<Monomial> recip1(3, mono);
 
     // std::cout << (int)2.4 % 2 << std::endl;
 

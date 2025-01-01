@@ -37,8 +37,8 @@ public:
     friend Polynomial operator+(Polynomial& poly1, Polynomial& poly2);
     friend Polynomial operator-(Polynomial& poly1, Polynomial& poly2);
 
-    // friend Polynomial operator*(double constant, Polynomial& thisPoly);
-    // friend Polynomial operator*(Polynomial& poly, double constant);
-    // // friend Polynomial operator*(Polynomial& poly1, Polynomial& poly2);
-    // friend Polynomial operator/(Polynomial& poly, double constant);
+    friend Polynomial operator*(double constant, Polynomial& thisPoly);
+    friend Polynomial operator*(Polynomial& poly, double constant);
+    // friend Polynomial operator*(Polynomial& poly1, Polynomial& poly2);
+    friend Polynomial operator/(Polynomial& poly, double constant);
 };

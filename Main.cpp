@@ -24,6 +24,12 @@ int main()
     divider();
     Polynomial poly3 = poly1 + poly2;
     poly3.print();
+    divider();
+    // Polynomial derivPoly = poly3.derivative();
+    std::cout << poly3.integral(-3, 1) << std::endl;
+    poly3.print();
+    // Polynomial poly4 = poly3 * 2;   
+    // poly4.derivative().print();
     // Polynomial combinedPoly = poly1.likeTerms();
     // combinedPoly.print();
 

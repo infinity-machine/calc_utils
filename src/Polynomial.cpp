@@ -119,21 +119,9 @@ void Polynomial::differentiate()
 // RETURN DIFFERENTIATED POLYNOMIAL
 Polynomial Polynomial::derivative()
 {
-    std::vector<std::pair<double, int>> differentiatedTerms;
-
-    for (int i = 0; i < size; i++)
-    {
-        if (terms[i].second != 0)
-        {
-            double new_coeff = terms[i].first * terms[i].second;
-            int new_power = terms[i].second - 1;
-
-            differentiatedTerms.push_back({new_coeff, new_power});
-        }
-    }
-
-    Polynomial differentiatedPoly(differentiatedTerms);
-    return differentiatedPoly;
+    Polynomial polyCopy(terms);
+    polyCopy.differentiate();
+    return polyCopy;
 }
 
 // ANTIDIFFERENTIATE POLYNOMIAL
@@ -152,18 +140,9 @@ void Polynomial::antidifferentiate()
 // RETURN ANTIDIFFERENTIATED POLYNOMIAL
 Polynomial Polynomial::antiderivative()
 {
-    std::vector<std::pair<double, int>> antidifferentiatedTerms;
-
-    for (int i = 0; i < size; i++)
-    {
-        double new_coeff = terms[i].first / (terms[i].second + 1);
-        int new_power = terms[i].second + 1;
-
-        antidifferentiatedTerms.push_back({new_coeff, new_power});
-    }
-
-    Polynomial antidifferentiatedPoly(antidifferentiatedTerms);
-    return antidifferentiatedPoly;
+    Polynomial polyCopy(terms);
+    polyCopy.antidifferentiate();
+    return polyCopy;
 }
 
 // RETURN INTEGRAL FROM B TO A
@@ -274,73 +253,59 @@ Polynomial operator-(Polynomial &poly1, Polynomial &poly2)
     return newPolynomial;
 }
 
-// Polynomial operator*(double constant, Polynomial &poly)
-// {
-//     std::vector<Monomial> prod_terms;
+Polynomial operator*(double constant, Polynomial &poly)
+{
+    std::vector<std::pair<double, int>> prod_terms;
 
-//     for (int i = 0; i < poly.size; i++)
+    for (int i = 0; i < poly.size; i++)
+    {
+        double new_coeff = constant * poly.terms[i].first;
+        prod_terms.push_back({new_coeff, poly.terms[i].second});
+    }
+
+    Polynomial prodPoly(prod_terms);
+    return prodPoly;
+}
+
+Polynomial operator*(Polynomial &poly, double constant)
+{
+    std::vector<std::pair<double, int>> prod_terms;
+
+    for (int i = 0; i < poly.size; i++)
+    {
+        double new_coeff = constant * poly.terms[i].first;
+        prod_terms.push_back({new_coeff, poly.terms[i].second});
+    }
+
+    Polynomial prodPoly(prod_terms);
+    return prodPoly;
+}
+
+// Polynomial operator*(Polynomial& poly1, Polynomial& poly2)
+// {
+//     std::vector<std::pair<double, int>> prod_terms;
+
+//     int i = 0, j = 0;
+
+//     while (i < poly1.size && j < poly2.size)
 //     {
-//         prod_terms.push_back(constant * poly.terms[i]);
+//         double prod_term = poly1.terms[i].first * poly2.terms[j].first;
+//         int prod_power = poly1.terms[i].second + poly2.terms[j].second;
+//         j++;
 //     }
 
-//     Polynomial prodPoly(prod_terms);
-//     return prodPoly;
 // }
 
-// Polynomial operator*(Polynomial &poly, double constant)
-// {
-//     std::vector<Monomial> prod_terms;
+Polynomial operator/(Polynomial &poly, double constant)
+{
+    std::vector<std::pair<double, int>> quotient_terms;
 
-//     for (int i = 0; i < poly.size; i++)
-//     {
-//         prod_terms.push_back(constant * poly.terms[i]);
-//     }
+    for (int i = 0; i < poly.size; i++)
+    {
+        double new_coeff = poly.terms[i].first / constant;
+        quotient_terms.push_back({new_coeff, poly.terms[i].second});
+    }
 
-//     Polynomial prodPoly(prod_terms);
-//     return prodPoly;
-// }
-
-// Polynomial operator*(Monomial &mono, Polynomial &poly)
-// {
-//     std::vector<Monomial> prod_terms;
-
-//     for (int i = 0; i < poly.size; i++)
-//     {
-//         prod_terms.push_back(mono * poly.terms[i]);
-//     }
-
-//     Polynomial prodPoly(prod_terms);
-//     return prodPoly;
-// }
-
-// Polynomial operator*(Polynomial &poly, Monomial &mono)
-// {
-//     std::vector<Monomial> prod_terms;
-
-//     for (int i = 0; i < poly.size; i++)
-//     {
-//         prod_terms.push_back(mono * poly.terms[i]);
-//     }
-
-//     Polynomial prodPoly(prod_terms);
-//     return prodPoly;
-// }
-
-// // Polynomial operator*(Polynomial& poly1, Polynomial& poly2)
-// // {
-// //     std::vector<Monomial> prod_terms;
-
-// // }
-
-// Polynomial operator/(Polynomial &poly, double constant)
-// {
-//     std::vector<Monomial> quotient_terms;
-
-//     for (int i = 0; i < poly.size; i++)
-//     {
-//         quotient_terms.push_back(poly.terms[i] / constant);
-//     }
-
-//     Polynomial prodPoly(quotient_terms);
-//     return prodPoly;
-// }
+    Polynomial prodPoly(quotient_terms);
+    return prodPoly;
+}

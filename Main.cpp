@@ -15,9 +15,15 @@ void divider()
 
 int main()
 {
-    // Polynomial poly1({{1, 5}, {2, 4}});
-    // poly1.print();
-    // divider();
+    Polynomial poly1({{1, 3}, {2, 2}, {1, 1}});
+    poly1.print();
+    divider();
+    Polynomial poly2({{4, 4}, {2, 2}, {1, 1}});
+    // Polynomial poly2 = poly1.derivative();
+    poly2.print();
+    divider();
+    Polynomial poly3 = poly1 + poly2;
+    poly3.print();
     // Polynomial combinedPoly = poly1.likeTerms();
     // combinedPoly.print();
 
@@ -64,16 +70,16 @@ int main()
     // poly1.print();
     // std::cout << poly1.integral(-2, 2) << std::endl;
 
-    Monomial mono({2, 4});
+    // Monomial mono({2, 4});
     // Monomial mono2 = mono;
 
-    Polynomial poly1({{1, 2}, {2, 3}});
+    // Polynomial poly1({{1, 2}, {2, 3}});
 
-    ReciprocalFunction<Monomial> recip1(3, mono);
+    // ReciprocalFunction<Monomial> recip1(3, mono);
 
     // std::cout << (int)2.4 % 2 << std::endl;
 
-    recip1.print();
+    // recip1.print();
 
     // ReciprocalFunction<Polynomial> recip2(poly1);
     // recip2.print();

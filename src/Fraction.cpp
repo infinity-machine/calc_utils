@@ -55,9 +55,48 @@ void Fraction::reduce()
     }
 }
 
+void Fraction::reciprocal()
+{
+    std::swap(numerator, denominator);
+}
+
+Fraction Fraction::getReciprocal()
+{
+    Fraction thisFraction(numerator, denominator);
+    thisFraction.reciprocal();
+    return thisFraction;
+}
+
+
 Fraction operator+(Fraction fraction1, Fraction fraction2)
 {
-    Fraction sum_fraction(fraction1.decimal() + fraction2.decimal());
+    std::cout << fraction1.decimal() + fraction2.decimal() << std::endl;
+    Fraction sumFraction(fraction1.decimal() + fraction2.decimal());
 
-    return sum_fraction;
+    return sumFraction;
+}
+
+Fraction operator-(Fraction fraction1, Fraction fraction2)
+{
+    Fraction diffFraction(fraction1.decimal() - fraction2.decimal());
+
+    return diffFraction;
+}
+
+Fraction operator*(Fraction fraction1, Fraction fraction2)
+{
+    int prod_numerator = fraction1.numerator * fraction2.numerator;
+    int prod_denominator = fraction1.denominator * fraction2.denominator;
+
+    Fraction prodFraction(prod_numerator, prod_denominator);
+    prodFraction.reduce();
+    
+    return prodFraction;
+}
+
+Fraction operator/(Fraction fraction1, Fraction fraction2)
+{
+    Fraction quotientFraction = fraction1 * fraction2.getReciprocal();
+
+    return quotientFraction;
 }

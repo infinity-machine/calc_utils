@@ -127,12 +127,15 @@ int main()
     // (mono*5).print();
 
 
-    // Fraction frac1(1, 6);
-    // Fraction frac2 (1, 6);
+    Fraction frac1(1, 5);
+    Fraction frac2 (3, 4);
 
-    // Fraction frac3 = frac1+frac2;
+    Fraction frac3 = frac1/frac2;
 
-    // frac3.print();
+    frac3.print();
+
+    Fraction frac4((double)13 / (double)14);
+    frac4.print();
 
     // double third = (double)1 / (double)3;
 

@@ -70,15 +70,24 @@ Fraction Fraction::getReciprocal()
 
 Fraction operator+(Fraction fraction1, Fraction fraction2)
 {
-    std::cout << fraction1.decimal() + fraction2.decimal() << std::endl;
-    Fraction sumFraction(fraction1.decimal() + fraction2.decimal());
+    int sum_numerator = (fraction1.numerator * fraction2.denominator) + (fraction1.denominator * fraction2.numerator);
+
+    int sum_denominator = fraction1.denominator * fraction2.denominator;
+    Fraction sumFraction(sum_numerator, sum_denominator);
+
+    sumFraction.reduce();
 
     return sumFraction;
 }
 
 Fraction operator-(Fraction fraction1, Fraction fraction2)
 {
-    Fraction diffFraction(fraction1.decimal() - fraction2.decimal());
+    int diff_numerator = (fraction1.numerator * fraction2.denominator) - (fraction1.denominator * fraction2.numerator);
+
+    int diff_denominator = fraction1.denominator * fraction2.denominator;
+    Fraction diffFraction(diff_numerator, diff_denominator);
+
+    diffFraction.reduce();
 
     return diffFraction;
 }

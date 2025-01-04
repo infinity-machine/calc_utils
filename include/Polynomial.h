@@ -16,11 +16,9 @@ public:
     Polynomial(const std::vector<std::pair<double, int>> &terms);
 
     int returnSize();
+    int returnDegree();
     double coeffAt(int index);
-    void setCoeffAt(double coeff, int index);
     int pwrAt(int index);
-    void setPwrAt(int pwr, int index);
-    void addTerm(std::pair<double, int>);
 
     void orderPwrs();
 

@@ -15,19 +15,21 @@ void divider()
 
 int main()
 {
-    Polynomial poly1({{1, 3}, {2, 2}, {1, 1}});
-    poly1.print();
-    divider();
-    Polynomial poly2({{4, 4}, {2, 2}, {1, 1}});
+    // Polynomial poly1({{1, 3}, {2, 2}, {1, 1}});
+    // poly1.print();
+    // divider();
+    // Polynomial poly2({{4, 4}, {2, 2}, {1, 1}});
     // Polynomial poly2 = poly1.derivative();
-    poly2.print();
-    divider();
-    Polynomial poly3 = poly1 + poly2;
-    poly3.print();
-    divider();
+    // poly2.print();
+    // divider();
+    // Polynomial poly3 = poly1 + poly2;
+    // poly3.print();
+    // divider();
     // Polynomial derivPoly = poly3.derivative();
-    std::cout << poly3.integral(-3, 1) << std::endl;
-    poly3.print();
+    // std::cout << poly3.integral(-3, 1) << std::endl;
+    // poly3.print();
+    // ReciprocalFunction<Polynomial> recip1;
+    // recip1.print();
     // Polynomial poly4 = poly3 * 2;   
     // poly4.derivative().print();
     // Polynomial combinedPoly = poly1.likeTerms();
@@ -123,4 +125,22 @@ int main()
     // 5 * mono;
     // mono * 5;
     // (mono*5).print();
+
+
+    // Fraction frac1(1, 6);
+    // Fraction frac2 (1, 6);
+
+    // Fraction frac3 = frac1+frac2;
+
+    // frac3.print();
+
+    // double third = (double)1 / (double)3;
+
+    // std::cout << third << std::endl;
+
+    // Fraction frac4(.74564);
+    // frac4.print();
+
+    // Fraction threeQuarters(.77);
+    // threeQuarters.print();
 }

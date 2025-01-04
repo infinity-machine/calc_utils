@@ -1,5 +1,4 @@
 #pragma once
-#include "Monomial.h"
 #include "Polynomial.h"
 #include "Fraction.h"
 #include <iostream>
@@ -17,7 +16,7 @@ private:
 public:
     ReciprocalFunction()
     {
-        Monomial init_term({1, 1});
+        Polynomial init_term;
         numerator = 1;
         inner_function = init_term;
         inner_function_size = 1;
@@ -44,7 +43,10 @@ public:
 
     void print()
     {
-        std::cout << numerator << " / " << inner_function.string() << std::endl;
+        std::cout << numerator
+                  << " / "
+                  << "(" << inner_function.string() << ")"
+                  << std::endl;
     }
 
     void reduce()

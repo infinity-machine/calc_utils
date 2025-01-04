@@ -9,10 +9,10 @@ Polynomial::Polynomial()
     size = 1;
     degree = 1;
 
-    std::pair<double, int> term;
+    std::pair<double, int> init_term;
 
-    term = std::make_pair(1, 1);
-    terms.push_back(term);
+    init_term = std::make_pair(1, 1);
+    terms.push_back(init_term);
 }
 
 // CONSTRUCTOR GIVEN COEFFICIENTS AND RESPECTIVE POWERS
@@ -24,7 +24,8 @@ Polynomial::Polynomial(const std::vector<std::pair<double, int>> &monomials)
     }
 
     size = monomials.size();
-    // DEGREE = POWER OF LARGEST MONOMIAL TERM
+    this->orderPwrs();
+    degree = terms[0].second;
 }
 
 int Polynomial::returnSize()
@@ -32,12 +33,19 @@ int Polynomial::returnSize()
     return size;
 }
 
-void Polynomial::addTerm(std::pair<double, int> monomial)
+int Polynomial::returnDegree()
 {
-    terms.push_back(monomial);
-    size++;
-    degree = monomial.second;
-    this->orderPwrs();
+    return degree;
+}
+
+double Polynomial::coeffAt(int index)
+{
+    return terms[index].first;
+}
+
+int Polynomial::pwrAt(int index)
+{
+    return terms[index].second;
 }
 
 // ORGANIZE BY DESCENDING ORDER OF TERM POWERS
@@ -62,22 +70,24 @@ std::string Polynomial::string()
         if (terms[i].second >= 10)
             ss << "(" << terms[i].first << "x^" << terms[i].second << ")";
 
-        if (terms[i].second < 10 && terms[i].second > 1)
-            ss << terms[i].first << "x" << superscriptDigit(terms[i].second);
+        else
+        {
+            if (terms[i].first > 1)
+                ss << terms[i].first;
 
-        if (terms[i].second == 1)
-            ss << terms[i].first << "x";
+            ss << "x";
 
-        if (terms[i].second == 0)
-            ss << terms[i].first;
+            if (terms[i].second < 10 && terms[i].second > 1)
+                ss << superscriptDigit(terms[i].second);
 
-        if (i + 1 != size)
-            ss << " + ";
+            if (i + 1 != size)
+                ss << " + ";
+        }
     }
 
-    std::string return_string = ss.str();
+    std::string poly_string = ss.str();
 
-    return return_string;
+    return poly_string;
 }
 
 // EVALUATE POLYNOMIAL FOR GIVEN VALUE
@@ -114,6 +124,7 @@ void Polynomial::differentiate()
             size--;
         }
     }
+    degree--;
 }
 
 // RETURN DIFFERENTIATED POLYNOMIAL
@@ -135,6 +146,7 @@ void Polynomial::antidifferentiate()
         terms[i].first = new_coeff;
         terms[i].second = new_power;
     }
+    degree++;
 }
 
 // RETURN ANTIDIFFERENTIATED POLYNOMIAL

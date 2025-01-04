@@ -1,12 +1,38 @@
 #include "Fraction.h"
 #include <string>
 #include <iostream>
+#include <cmath>
 #include <numeric>
+#include <cassert>
 
 Fraction::Fraction(double num, double denom)
 {
+    assert(denom != 0);
     numerator = num;
     denominator = denom;
+}
+
+Fraction::Fraction(double decimal)
+{
+    if (fabs(decimal - 1.0 / 3) < 0.0001)
+    {
+        numerator = 1;
+        denominator = 3;
+        return;
+    }
+
+    if (fabs(decimal - 2.0 / 3) < 0.0001)
+    {
+        numerator = 2;
+        denominator = 3;
+        return;
+    }
+
+    int precision = 1000000000;
+    denominator = precision;
+    numerator = decimal * precision;
+
+    this->reduce();
 }
 
 void Fraction::print()
@@ -16,7 +42,7 @@ void Fraction::print()
 
 double Fraction::decimal()
 {
-    return numerator / denominator;
+    return (double)numerator / (double)denominator;
 }
 
 void Fraction::reduce()
@@ -29,6 +55,9 @@ void Fraction::reduce()
     }
 }
 
-// Fraction operator+(Fraction fraction1, Fraction fraction2){
+Fraction operator+(Fraction fraction1, Fraction fraction2)
+{
+    Fraction sum_fraction(fraction1.decimal() + fraction2.decimal());
 
-// }
+    return sum_fraction;
+}

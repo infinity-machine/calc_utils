@@ -1,7 +1,6 @@
 #include "LogFunction.h"
 #include "Function.h"
 #include "Polynomial.h"
-#include "Monomial.h"
 #include "unicode.h"
 #include <iostream>
 

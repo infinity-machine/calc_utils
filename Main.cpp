@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../include/Polynomial.h"
-#include "Monomial.h"
 #include <vector>
 #include <map>
 #include "LogFunction.h"

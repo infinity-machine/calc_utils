@@ -1,25 +1,24 @@
 #pragma once
 
 #include "Function.h"
-#include "Monomial.h"
 #include <vector>
 #include <iostream>
 
 class Polynomial : public Function
 {
 private:
-    std::vector<Monomial> terms;
+    std::vector<std::pair<double, int>> terms;
     int size;
     int degree;
 
 public:
     Polynomial();
     Polynomial(const std::vector<std::pair<double, int>> &terms);
-    Polynomial(const std::vector<Monomial> &terms);
 
     int returnSize();
-
-    void addTerm(Monomial term);
+    int returnDegree();
+    double coeffAt(int index);
+    int pwrAt(int index);
 
     void orderPwrs();
 
@@ -38,20 +37,6 @@ public:
 
     friend Polynomial operator*(double constant, Polynomial& thisPoly);
     friend Polynomial operator*(Polynomial& poly, double constant);
-    friend Polynomial operator*(Monomial& mono, Polynomial& poly);
-    friend Polynomial operator*(Polynomial& poly, Monomial& mono);
     // friend Polynomial operator*(Polynomial& poly1, Polynomial& poly2);
-
     friend Polynomial operator/(Polynomial& poly, double constant);
-
-    // void operator=(std::vector<Monomial> mono_vector)
-    // {
-
-    // }
-
-    // NEED OPERATOR OVERLOADS FOR
-    // MULTIPLICATION / BY MONOMIAL
-    // MULTIPLICATION / BY POLYNOMIAL
-    // = RETURN TRUE / FALSE
-    // == TO COPY
 };
